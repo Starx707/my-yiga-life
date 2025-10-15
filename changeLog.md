@@ -1,9 +1,9 @@
-✨ 10/10/2025
+#✨ 10/10/2025
 [Will be updated soon]
 
 
 
-✨ 12/10/2025
+#✨ 12/10/2025
 **///////////////////// Verion 1 - User stories & ERD /////////////////////**
 User stories
 As app user I want… (1) so that I…..(2)
@@ -43,12 +43,12 @@ Other features without user story:
 
 
 “ERD”
-# primary key
+* primary key
 ~ foreign key
 ++ Auto Increment
 
 posts
-ID (# ++) => BigInt
+ID (* ++) => BigInt
 user_id (~) => BigInt
 yiga_points => Int
 Details => Varchar (300)
@@ -56,7 +56,7 @@ Likes => Int
 Img => Varchar (200)
 
 users
-ID (# ++) => BigInt
+ID (* ++) => BigInt
 username => string (30)
 email => email
 passw => password (20)
@@ -67,7 +67,7 @@ liked_posts => varchar (it will be an array but that will be tackled in the code
 date_joined => date
 
 admins
-ID (# ++) => BigInt
+ID (* ++) => BigInt
 username => string
 email =>  email
 password => varchar 
@@ -80,7 +80,7 @@ Admins have more then 1 post
 Many to many is both tabels singular and words in alphabetical order 
 
 
-✨ 14/10/2025
+#✨ 14/10/2025
 **///////////////////// Verion 2 - User stories & ERD => After feedback /////////////////////**
 User stories
 As app user I want… (1) so that I…..(2)
@@ -118,12 +118,12 @@ Other features without user story:
 - Community favourite posts
 
 “ERD”
-# primary key
+* primary key
 ~ foreign key
 ++ Auto Increment
 
 posts
-id (# ++) => BigInt
+id (* ++) => BigInt
 user_id (~) => BigInt
 yiga_points => Int
 details => Varchar (300)
@@ -134,7 +134,7 @@ private => boolean
  
 
 users
-id (# ++) => BigInt
+id (* ++) => BigInt
 username => string (30)
 email => email
 passw => password (20)
@@ -145,7 +145,8 @@ liked_posts => varchar (it will be an array but that will be tackled in the code
 date_joined => date
 
 categories
-id (# ++) => BigInt 
+id (* ++) => BigInt 
+name => Varchar (30)
 
 posts only have one user (or admin) => one to many
 users have more then 1 post => one to many
