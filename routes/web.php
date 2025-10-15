@@ -19,7 +19,8 @@ Route::get('/contact', function () {
 });
 
 //(urli, [controller] (to make one: php artisan make:controller)
-Route::get('/about/{name}', /*(1)*/ [\App\Http\Controllers\AboutController::class, 'index'])->name('about');
+//Route::get('/about/{name}', /*(1)*/ [\App\Http\Controllers\AboutController::class, 'index'])->name('about');
+Route::get('/about', /*(1)*/ [\App\Http\Controllers\PostController::class, 'index'])->name('about');
 
 /*
  * Route::get('/about/{name}', function ($myCat) {
