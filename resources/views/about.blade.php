@@ -8,7 +8,7 @@
     <title>About</title>
 </head>
 <body>
-<h1>About {{$myCat}}</h1>
+<h1>About {{$name}}</h1>
 <p>He's a fluffy boi</p>
 <a href="{{route('about', ['name' => "Julia"])}}">Here's Julia</a>
 </body>
