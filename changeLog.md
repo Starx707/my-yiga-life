@@ -1,9 +1,9 @@
-#✨ 10/10/2025
+✨ 10/10/2025
 [Will be updated soon]
 
 
 
-#✨ 12/10/2025
+✨ 12/10/2025
 **///////////////////// Verion 1 - User stories & ERD /////////////////////**
 User stories
 As app user I want… (1) so that I…..(2)
@@ -80,7 +80,7 @@ Admins have more then 1 post
 Many to many is both tabels singular and words in alphabetical order 
 
 
-#✨ 14/10/2025
+✨ 14/10/2025
 **///////////////////// Verion 2 - User stories & ERD => After feedback /////////////////////**
 User stories
 As app user I want… (1) so that I…..(2)
