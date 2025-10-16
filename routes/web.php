@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,9 +20,14 @@ Route::get('/contact', function () {
 });
 
 //(urli, [controller] (to make one: php artisan make:controller)
-//Route::get('/about/{name}', /*(1)*/ [\App\Http\Controllers\AboutController::class, 'index'])->name('about');
-Route::get('/about', /*(1)*/ [\App\Http\Controllers\PostController::class, 'index'])->name('about');
+Route::get('/about/{name}', /*(1)*/ [\App\Http\Controllers\AboutController::class, 'index'])->name('about');
+Route::resource('/post', PostController::class);
 
+//examples resource controller & route:
+//artisan:make pick -> resource contoller
+//Route::resource(name: 'about', controller: AboutController::class)
+
+//Same as current about route but with set variable
 /*
  * Route::get('/about/{name}', function ($myCat) {
 //    $myCat = "Dickens";

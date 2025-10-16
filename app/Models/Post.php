@@ -9,4 +9,5 @@ class Post extends Model
     //may want to use Laravel -> Generate Helper Code
 }
 
+$posts = Post::all();
 
