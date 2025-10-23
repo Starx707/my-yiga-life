@@ -35,5 +35,23 @@ select> name="category_id" id=""
         option value=""{{category->id}}> {{$category->name}}</
 </
 --}}
+
+@foreach($posts as $post)
+    @if($post->private == false)
+        <div>
+            <h4>Post: {{$post->id}}</h4>
+            {{--add image--}}
+            <p style="text-decoration: underline">Description</p>
+            <p>{{$post->details}}</p>
+            <p>Location player: {{$post->location}}</p>
+            <p>Yiga points: {{$post->yiga_points}}</p> <!--in live a private thing-->
+            <p>Likes: {{$post->likes}}</p>
+        {{--            <p> Category: {{$post->category->name}}--//category()->where.... (not needed and with () it's a query)}}
+    </div>
+@endif
+@endforeach
+
+{{--<a href="{{route('posts.create')}}">Add new page</a>--}}
+        {{--need to make directory thingy?--}}
 </body>
 </html>

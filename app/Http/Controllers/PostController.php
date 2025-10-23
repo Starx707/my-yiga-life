@@ -9,23 +9,20 @@ class PostController extends Controller
 {
     public function index()//classname $variable name** aka Posts $post
     {
-        $post_d = new Post();
-        $post_d->yiga_points = 0;
-        $post_d->details = 'Some information';
-        $post_d->likes = 0;
-        $post_d->img = 'img.png';
-        $post_d->location = 'Hyrule field';
-        $post_d->private = 0;
+        //hardcoded data to practice
+//        $post_d = new Post();
+//        $post_d->yiga_points = 0;
+//        $post_d->details = 'Some information';
+//        $post_d->likes = 0;
+//        $post_d->img = 'img.png';
+//        $post_d->location = 'Hyrule field';
+//        $post_d->private = 0;
 
-        foreach (Post::all() as $post) {
-            echo $post->id;
-        }
-
-        $post_location = Post::where('id', 1)->first(); //this not needed if= **
+        $posts = Post::all(); //->with('category') >> is quicker: is like JOIN
         //dd() = done & die; to not accidentally run any more code
         //findorFail -> standard 404 page if can't find what it's been given
 
-        return view('posts', compact(var_name: 'post_location'));
+        return view('posts', compact(var_name: 'posts'));
     }
 
     public function create()
@@ -63,9 +60,11 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id) //Post $post
     {
-        //
+        //get data from chosen post (to show on bigger screen)
+        //$category = Category::find($post->id)->width('category')
+        //return view('Post.show', compact('$post')
     }
 
     /**
