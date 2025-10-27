@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>posts</title>
 </head>
+
 <body>
 <h1>Posts</h1>
 {{--<p>Amount of likes: {{$post_d['likes']}}</p>--}}
