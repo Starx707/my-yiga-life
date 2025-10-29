@@ -4,8 +4,6 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-//(1) or put it here
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -15,24 +13,25 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 //My routes
-Route::get('/contact', function () {
-    return view('contact');
-});
+Route::get('/about/{name}', [\App\Http\Controllers\AboutController::class, 'index'])
+    ->name('about')
+    ->middleware(['auth', 'verified']);
 
-//(urli, [controller] (to make one: php artisan make:controller)
-Route::get('/about/{name}', /*(1)*/ [\App\Http\Controllers\AboutController::class, 'index'])->name('about');
-Route::resource('/post', PostController::class);
+Route::resource('/posts', PostController::class)
+    ->middleware(['auth', 'verified'])
+    ->name("index", "posts");
 
-//examples resource controller & route:
-//artisan:make pick -> resource contoller
-//Route::resource(name: 'about', controller: AboutController::class)
+Route::get('/new-post', function () {
+    return view('new-post');
+})
+    ->middleware(['auth', 'verified'])
+    ->name('new-post');
 
-//Same as current about route but with set variable
-/*
- * Route::get('/about/{name}', function ($myCat) {
-//    $myCat = "Dickens";
-    return view('about', compact(var_name: 'myCat'));
-})->name('about');*/
+Route::get('', function () {
+    return view('my-posts');
+})
+    ->middleware('auth', 'verified')
+    ->name('my-posts');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

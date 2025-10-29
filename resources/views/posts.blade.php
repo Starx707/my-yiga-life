@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>posts</title>
 </head>
-
+<x-simple-navigation></x-simple-navigation>
 <body>
 <h1>Posts</h1>
 {{--<p>Amount of likes: {{$post_d['likes']}}</p>--}}
@@ -47,12 +47,11 @@ select> name="category_id" id=""
             <p>Location player: {{$post->location}}</p>
             <p>Yiga points: {{$post->yiga_points}}</p> <!--in live a private thing-->
             <p>Likes: {{$post->likes}}</p>
-        {{--            <p> Category: {{$post->category->name}}--//category()->where.... (not needed and with () it's a query)}}
-    </div>
-@endif
+        </div>
+    @endif
 @endforeach
-
+{{--<p> Category: {{$post->category->name}}--//category()->where.... (not needed and with () it's a query)}}
 {{--<a href="{{route('posts.create')}}">Add new page</a>--}}
-        {{--need to make directory thingy?--}}
+{{--need to make directory thingy?--}}
 </body>
 </html>
