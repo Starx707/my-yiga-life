@@ -12,15 +12,16 @@ return new class extends Migration {
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-//            $table->foreignId('category_id')->constrained();
-            //current plan would be adding to
-            //->nullable if I want them to be able to be empty -> might need to reset this with fresh artisan command
+            $table->foreignId('category_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->integer('yiga_points');
+            $table->string('title');
             $table->string('details', 300);
             $table->integer('likes');
-            $table->string('img');
-            $table->string('location');
+            $table->string('img')->nullable();
+            $table->string('location')->nullable();
             $table->boolean('private');
+            $table->boolean('hidden');
             $table->timestamps();
         });
     }

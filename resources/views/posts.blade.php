@@ -42,7 +42,7 @@ select> name="category_id" id=""
         <div>
             <h4>Post: {{$post->id}}</h4>
             {{--add image--}}
-            <p style="text-decoration: underline">Description</p>
+            <p style="text-decoration: underline">{{$post->title}}</p>
             <p>{{$post->details}}</p>
             <p>Location player: {{$post->location}}</p>
             <p>Yiga points: {{$post->yiga_points}}</p> <!--in live a private thing-->
