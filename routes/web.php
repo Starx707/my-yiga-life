@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Post;
+
+//maybe remove later on
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,7 +26,18 @@ Route::resource('/index', PostController::class)
 
 Route::post('/post-created', function () {
     //validation
-    dd(request()->all());
+    Post::create([
+        'category_id' => 1,
+        'user_id' => 1,
+        'yiga_points' => 0,
+        'title' => request('title'),
+        'details' => request('description'),
+        'likes' => 0,
+        'private' => 0,
+        'hidden' => 0
+    ]);
+
+    return redirect('/index');
 })
     ->name('post-created');
 

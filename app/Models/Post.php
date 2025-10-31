@@ -11,6 +11,8 @@ class Post extends Model
     //Still add the relations here -> Tip: look up on Laravel site
     //use SoftDeletes
 
+    protected $fillable = ['category_id', 'user_id', 'yiga_points', 'title', 'details', 'likes', 'private', 'hidden'];
+
 }
 
 $posts = Post::all();

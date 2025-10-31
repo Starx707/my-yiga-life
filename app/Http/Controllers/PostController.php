@@ -15,7 +15,7 @@ class PostController extends Controller
         //findorFail -> standard 404 page if can't find what it's been given
 
 
-        return view('post.index', ['posts' => DB::table('posts')->paginate(2)], compact(var_name: 'posts'));
+        return view('post.index', ['posts' => DB::table('posts')->latest()->paginate(2)], compact(var_name: 'posts'));
     }
 
     public function create()

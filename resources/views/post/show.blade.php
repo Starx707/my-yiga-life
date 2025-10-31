@@ -9,7 +9,6 @@
 </head>
 <x-simple-navigation></x-simple-navigation>
 <body>
-<p>Simply show posts here of the user that's been logged in</p>
-<p>if there are no posts make sure to show through text</p>
+<p>Show details of post</p>
 </body>
 </html>
