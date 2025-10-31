@@ -21,13 +21,19 @@ Route::resource('/index', PostController::class)
     ->middleware(['auth', 'verified'])
     ->name("index", "posts");
 
+Route::post('/post-created', function () {
+    //validation
+    dd(request()->all());
+})
+    ->name('post-created');
+
 Route::get('/new-post', function () {
     return view('post.create');
 })
     ->middleware(['auth', 'verified'])
     ->name('new-post');
 
-Route::get('', function () {
+Route::get('/post', function () {
     return view('post.show');
 })
     ->middleware('auth', 'verified')

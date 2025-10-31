@@ -10,7 +10,8 @@
 <x-simple-navigation></x-simple-navigation>
 <body>
 
-<form>
+<form method="POST" action="/post-created">
+    @csrf
     <div class="space-y-12">
         <div class="border-b border-white/10 pb-12">
             <h2 class="text-base/7 font-semibold text-white">New post</h2>
@@ -21,8 +22,7 @@
                     <div class="mt-2">
                         <div
                             class="flex items-center rounded-md bg-white/5 pl-3 outline-1 -outline-offset-1 outline-white/10 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-500">
-                            <div class="shrink-0 text-base text-gray-400 select-none sm:text-sm/6">workcation.com/</div>
-                            <input id="title" type="text" name="title" placeholder="janesmith"
+                            <input id="title" type="text" name="title" placeholder="Post title"
                                    class="block min-w-0 grow bg-transparent py-1.5 pr-3 pl-1 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-sm/6"/>
                         </div>
                     </div>
@@ -45,6 +45,20 @@
                             Change
                         </button>
                     </div>
+                </div>
+
+                <label for="post" class="block text-sm/6 font-medium text-white">Posting type</label>
+                <div class="flex items-center gap-x-3">
+                    <input id="post-public" type="radio" name="post-public"
+                           class="relative size-4 appearance-none rounded-full border border-white/10 bg-white/5 before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-500 checked:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:border-white/5 disabled:bg-white/10 disabled:before:bg-white/20 forced-colors:appearance-auto forced-colors:before:hidden"/>
+                    <label for="post-public" class="block text-sm/6 font-medium text-white">
+                        Public post</label>
+                </div>
+                <div class="flex items-center gap-x-3">
+                    <input id="post-private" type="radio" name="post-private"
+                           class="relative size-4 appearance-none rounded-full border border-white/10 bg-white/5 before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-500 checked:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:border-white/5 disabled:bg-white/10 disabled:before:bg-white/20 forced-colors:appearance-auto forced-colors:before:hidden"/>
+                    <label for="post-private" class="block text-sm/6 font-medium text-white">
+                        Private post (only visible to you)</label>
                 </div>
             </div>
         </div>
