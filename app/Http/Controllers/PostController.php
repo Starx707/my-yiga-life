@@ -4,25 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
     public function index()//classname $variable name** aka Posts $post
     {
-        //hardcoded data to practice
-//        $post_d = new Post();
-//        $post_d->yiga_points = 0;
-//        $post_d->details = 'Some information';
-//        $post_d->likes = 0;
-//        $post_d->img = 'img.png';
-//        $post_d->location = 'Hyrule field';
-//        $post_d->private = 0;
-
         $posts = Post::all(); //->with('category') >> is quicker: is like JOIN
         //dd() = done & die; to not accidentally run any more code
         //findorFail -> standard 404 page if can't find what it's been given
 
-        return view('posts', compact(var_name: 'posts'));
+
+        return view('post.index', ['posts' => DB::table('posts')->paginate(2)], compact(var_name: 'posts'));
     }
 
     public function create()

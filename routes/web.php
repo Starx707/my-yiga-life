@@ -17,18 +17,18 @@ Route::get('/about/{name}', [\App\Http\Controllers\AboutController::class, 'inde
     ->name('about')
     ->middleware(['auth', 'verified']);
 
-Route::resource('/posts', PostController::class)
+Route::resource('/index', PostController::class)
     ->middleware(['auth', 'verified'])
     ->name("index", "posts");
 
 Route::get('/new-post', function () {
-    return view('new-post');
+    return view('post.create');
 })
     ->middleware(['auth', 'verified'])
     ->name('new-post');
 
 Route::get('', function () {
-    return view('my-posts');
+    return view('post.show');
 })
     ->middleware('auth', 'verified')
     ->name('my-posts');
