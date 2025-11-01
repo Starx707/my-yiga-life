@@ -25,7 +25,11 @@ Route::resource('/index', PostController::class)
     ->name("index", "posts");
 
 Route::post('/post-created', function () {
-    //validation
+    request()->validate([
+        'title' => ['required', 'min:4'],
+        'description' => ['required', 'min:1']
+    ]);
+
     Post::create([
         'category_id' => 1,
         'user_id' => 1,
@@ -37,21 +41,64 @@ Route::post('/post-created', function () {
         'hidden' => 0
     ]);
 
-    return redirect('/index');
+    return redirect('/index'); //add ,PostController::class->create($request) to run in other place
 })
     ->name('post-created');
 
+//create new post
 Route::get('/new-post', function () {
     return view('post.create');
 })
     ->middleware(['auth', 'verified'])
     ->name('new-post');
 
+//show single post
+//../post/{id} (remove function and add [\App\Http\Controllers\AboutController::class, 'show'])
 Route::get('/post', function () {
     return view('post.show');
 })
     ->middleware('auth', 'verified')
     ->name('my-posts');
+
+//delete/destroy post
+Route::delete('/post/{id}', function ($id) {
+    //authorize
+
+    $post = Post::findOrFail($id);
+    $post->delete();
+
+    //Post::findOrFail($id)->delete();
+
+    //redirect
+    return redirect('/index'); //change to my posts page once that works
+});
+
+//update post
+Route::patch('/post/{id}', function ($id) {
+    //validate
+    request()->validate([
+        'title' => ['required', 'min:4'],
+        'description' => ['required', 'min:1']
+    ]);
+
+    //authorize...
+
+    //update & persist
+    $post = Post::findOrFail($id);
+
+    $post->update([
+        'title' => request('title'),
+        'details' => request('description')
+        //image
+        //location
+        //private/public
+    ]);
+
+    //redirect to post specific page (eventually)
+    return redirect('/post/' . $post->id);
+});
+
+//edit?
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

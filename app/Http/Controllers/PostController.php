@@ -18,7 +18,7 @@ class PostController extends Controller
         return view('post.index', ['posts' => DB::table('posts')->latest()->paginate(2)], compact(var_name: 'posts'));
     }
 
-    public function create()
+    public function create($data)
     {
         //database table -> migration
         // Model (singular)
@@ -27,6 +27,7 @@ class PostController extends Controller
 
         //$categories = Category::all() -> poops array
         //return view('page.create', compact('categories'));
+        $this->store($data);
     }
 
     /**
@@ -47,7 +48,7 @@ class PostController extends Controller
         //$variable->title = $request->input('nameofinputfield')
         //$variable -> save()
 
-        //return redirect()->route('page.index',pageController@index);
+        $this->index();
     }
 
     /**
@@ -55,9 +56,11 @@ class PostController extends Controller
      */
     public function show(string $id) //Post $post
     {
+        $post = 0; //fill this with correct array data
         //get data from chosen post (to show on bigger screen)
         //$category = Category::find($post->id)->width('category')
         //return view('Post.show', compact('$post')
+        return view('post.show', compact($post));
     }
 
     /**
