@@ -5,16 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Show post</title>
+    <title>Your posts</title>
 </head>
-<x-simple-navigation></x-simple-navigation>
 <body>
-<p>Show details of post</p>
-<p>Title: {{$post->title}}</p>
-<p>Description: {{$post->details}}</p>
 
-@can('edit-post', $post)
-    <a href="/post/{{$post->id}}/edit">Edit post</a>
-@endcan
 </body>
 </html>

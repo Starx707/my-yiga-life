@@ -3,31 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
     public function index()//classname $variable name** aka Posts $post
     {
         $posts = Post::all(); //->with('category') >> is quicker: is like JOIN
-        //dd() = done & die; to not accidentally run any more code
-        //findorFail -> standard 404 page if can't find what it's been given
-
-
-        return view('post.index', ['posts' => DB::table('posts')->latest()->paginate(2)], compact(var_name: 'posts'));
+        return view('post.index', ['posts' => DB::table('posts')->latest()->paginate(3)], compact(var_name: 'posts'));
     }
 
-    public function create($data)
+    public function create()
     {
-        //database table -> migration
-        // Model (singular)
-        // send to view
-        //<select>
-
-        //$categories = Category::all() -> poops array
-        //return view('page.create', compact('categories'));
-        $this->store($data);
+        return view('post.create');
     }
 
     /**
@@ -35,20 +27,26 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //validate
-        $request->validate([
-            //'name' => 'required|max:100' //left to right & | functions as ,
-        ]);
-        //show errors
-        //security
         //return data to input fields
-        //insert into sql
-
         //$variable = new post();
-        //$variable->title = $request->input('nameofinputfield')
-        //$variable -> save()
 
-        $this->index();
+        request()->validate([
+            'title' => ['required', 'min:4'],
+            'description' => ['required', 'min:1']
+        ]);
+
+        Post::create([
+            'category_id' => 1,
+            'user_id' => $request->user()->id,
+            'yiga_points' => 0,
+            'title' => request('title'),
+            'details' => request('description'),
+            'likes' => 0,
+            'private' => 0,
+            'hidden' => 0
+        ]);
+
+        return redirect('/index');
     }
 
     /**
@@ -56,11 +54,8 @@ class PostController extends Controller
      */
     public function show(string $id) //Post $post
     {
-        $post = 0; //fill this with correct array data
-        //get data from chosen post (to show on bigger screen)
-        //$category = Category::find($post->id)->width('category')
-        //return view('Post.show', compact('$post')
-        return view('post.show', compact($post));
+        $post = Post::findOrFail($id);
+        return view('post.show', compact('post'));
     }
 
     /**
@@ -68,7 +63,9 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        $post = Post::findOrFail($id);
+        return view('post.edit', compact('post'));
     }
 
     /**
@@ -76,7 +73,24 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //validate
+        request()->validate([
+            'title' => ['required', 'min:4'],
+            'description' => ['required', 'min:1']
+        ]);
+
+        //authorize...
+
+        $post = Post::findOrFail($id);
+
+        $post->update([
+            'title' => request('title'),
+            'details' => request('description')
+            //image
+            //location
+            //private/public
+        ]);
+        return redirect('/post/' . $post->id);
     }
 
     /**
@@ -84,7 +98,23 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        //authorize
+
+//        $post = Post::findOrFail($id);
+//        $post->delete();
+        Post::findOrFail($id)->delete();
+
+        return redirect('/index'); //change to my posts page once that works
+    }
+
+    public function userPosts()
+    {
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+        //get user id
+        //compare which posts are connected to those id's
+        return view('my-posts');
     }
 
 }

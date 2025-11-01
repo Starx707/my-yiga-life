@@ -30,6 +30,7 @@ select> name="category_id" id=""
                     </div>
                 </a>
                 <a href="#!">
+                    <a href="/post/{{$post->id}}/">Details</a>
                     <div
                         class="text-xs absolute top-0 right-0 bg-indigo-600 px-4 py-2 text-white mt-3 mr-3 hover:bg-white hover:text-indigo-600 transition duration-500 ease-in-out">
                         Tag (filter)
