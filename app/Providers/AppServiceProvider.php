@@ -22,8 +22,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+
         Gate::define('edit-post', function (User $user, Post $post) {
             return $post->user->is($user);
         });
+
+        //check if loggin user is admin
+        //if is admin is verified to change data but only some data
     }
 }

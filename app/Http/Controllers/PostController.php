@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
-    public function index()//classname $variable name** aka Posts $post
+    public function index()
     {
         $posts = Post::all(); //->with('category') >> is quicker: is like JOIN
         return view('post.index', ['posts' => DB::table('posts')->latest()->paginate(3)], compact(var_name: 'posts'));
@@ -35,6 +35,12 @@ class PostController extends Controller
             'description' => ['required', 'min:1']
         ]);
 
+        if (request('postType')) {
+            $private = request('postType');
+        } else if (request('postType') === null) {
+            $private = "0";
+        }
+
         Post::create([
             'category_id' => 1,
             'user_id' => $request->user()->id,
@@ -42,7 +48,7 @@ class PostController extends Controller
             'title' => request('title'),
             'details' => request('description'),
             'likes' => 0,
-            'private' => 0,
+            'private' => $private,
             'hidden' => 0
         ]);
 
@@ -63,8 +69,20 @@ class PostController extends Controller
      */
     public function edit(string $id)
     {
-
         $post = Post::findOrFail($id);
+
+//        Gate::define('edit-post', function (User $user, Post $post) {
+//            return $post->user->is($user);
+//        });
+//        if (Auth::guest()) {
+//            return redirect('/login');
+//        }
+//        if ($post->user->isNot(Auth::user())) {
+//            abort(403);
+//        }
+
+        Gate::authorize('edit-post', $post);
+
         return view('post.edit', compact('post'));
     }
 
@@ -79,18 +97,27 @@ class PostController extends Controller
             'description' => ['required', 'min:1']
         ]);
 
-        //authorize...
-
         $post = Post::findOrFail($id);
+
 
         $post->update([
             'title' => request('title'),
-            'details' => request('description')
+            'details' => request('description'),
+            'private' => $this->privateOrPublic(request('postType'))
             //image
             //location
-            //private/public
         ]);
+
         return redirect('/post/' . $post->id);
+    }
+
+    private function privateOrPublic($data)
+    {
+        if ($data) {
+            return $data;
+        } else if ($data === null) {
+            return "0";
+        }
     }
 
     /**
@@ -98,7 +125,6 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-        //authorize
 
 //        $post = Post::findOrFail($id);
 //        $post->delete();
@@ -107,14 +133,26 @@ class PostController extends Controller
         return redirect('/index'); //change to my posts page once that works
     }
 
-    public function userPosts()
+    public function userPosts(Request $request)
     {
         if (Auth::guest()) {
             return redirect('/login');
         }
-        //get user id
-        //compare which posts are connected to those id's
-        return view('my-posts');
+
+        $posts = Post::all()->where('user_id', $request->user()->id);
+        return view('my-posts', compact('posts'));
+
+        //, ['posts' => DB::table('posts')->latest()->paginate(3)]
+    }
+
+    public function allPosts()
+    {//same as index but neater to keep separete
+
+    }
+
+    public function hidePost() //gives admin right to hide a post
+    {
+
     }
 
 }

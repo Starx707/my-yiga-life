@@ -22,14 +22,15 @@ Route::controller(PostController::class)->group(function () {
         ->name('new-post');
     Route::get('/post/{id}', 'show');
     Route::delete('/post/{id}', 'destroy');
-    
-    Route::get('/post/{id}/edit', 'edit')
-        ->middleware('can:edit-post');
+
+    Route::get('/post/{id}/edit', 'edit');
 
     Route::patch('/post/{id}', 'update');
 
     Route::get('/my-posts', 'userPosts')
         ->name('user-posts');
+
+    Route::get('/all-posts', '')
 })->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {

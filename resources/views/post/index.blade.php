@@ -18,7 +18,7 @@ select> name="category_id" id=""
 --}}
 
 @foreach($posts as $post)
-    @if($post->private == false)
+    @if($post->private == 0)
         <div class="rounded overflow-hidden shadow-lg flex flex-col">
             <a href="#"></a>
             <div class="relative"><a href="#">
@@ -60,15 +60,6 @@ select> name="category_id" id=""
                         </g>
                     </svg>
                     <span class="ml-1">{{$post->likes}} likes</span>
-                </span>
-
-                <span href="#" class="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
-                    <svg class="h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
-                        </path>
-                    </svg>
-                    <span class="ml-1">39 Comments</span>
                 </span>
             </div>
         </div>

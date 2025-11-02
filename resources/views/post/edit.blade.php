@@ -57,19 +57,9 @@
                     </div>
                 </div>
 
-                <label for="post" class="block text-sm/6 font-medium text-white">Posting type</label>
-                <div class="flex items-center gap-x-3">
-                    <input id="post-public" type="radio" name="post-public"
-                           class="relative size-4 appearance-none rounded-full border border-white/10 bg-white/5 before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-500 checked:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:border-white/5 disabled:bg-white/10 disabled:before:bg-white/20 forced-colors:appearance-auto forced-colors:before:hidden"/>
-                    <label for="post-public" class="block text-sm/6 font-medium text-white">
-                        Public post</label>
-                </div>
-                <div class="flex items-center gap-x-3">
-                    <input id="post-private" type="radio" name="post-private"
-                           class="relative size-4 appearance-none rounded-full border border-white/10 bg-white/5 before:absolute before:inset-1 before:rounded-full before:bg-white not-checked:before:hidden checked:border-indigo-500 checked:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:border-white/5 disabled:bg-white/10 disabled:before:bg-white/20 forced-colors:appearance-auto forced-colors:before:hidden"/>
-                    <label for="post-private" class="block text-sm/6 font-medium text-white">
-                        Private post (only visible to you)</label>
-                </div>
+                <label for="postType" class="block text-sm/6 font-medium text-white">Posting type</label>
+                <input type="checkbox" id="postType" name="postType" value="1">
+                <label for="postType">Make post private</label><br>
             </div>
         </div>
     </div>
