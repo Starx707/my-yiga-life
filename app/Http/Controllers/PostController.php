@@ -14,7 +14,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all(); //->with('category') >> is quicker: is like JOIN
-        return view('post.index', ['posts' => DB::table('posts')->latest()->paginate(3)], compact(var_name: 'posts'));
+        return view('post.index', ['posts' => DB::table('posts')->latest()->paginate(10)], compact(var_name: 'posts'));
     }
 
     public function create()
@@ -91,21 +91,16 @@ class PostController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //validate
         request()->validate([
             'title' => ['required', 'min:4'],
             'description' => ['required', 'min:1']
         ]);
 
         $post = Post::findOrFail($id);
-
-
         $post->update([
             'title' => request('title'),
             'details' => request('description'),
             'private' => $this->privateOrPublic(request('postType'))
-            //image
-            //location
         ]);
 
         return redirect('/post/' . $post->id);
@@ -125,12 +120,8 @@ class PostController extends Controller
      */
     public function destroy(string $id)
     {
-
-//        $post = Post::findOrFail($id);
-//        $post->delete();
         Post::findOrFail($id)->delete();
-
-        return redirect('/index'); //change to my posts page once that works
+        return redirect('/index');
     }
 
     public function userPosts(Request $request)
@@ -145,14 +136,53 @@ class PostController extends Controller
         //, ['posts' => DB::table('posts')->latest()->paginate(3)]
     }
 
-    public function allPosts()
-    {//same as index but neater to keep separete
+    public function allPosts(Request $request)
+    {//same as index but neater to keep separate
+        $posts = Post::all();
 
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+        if ($request->user()->admin !== 1) {
+            abort(403);
+        }
+
+        return view('all-posts', compact(var_name: 'posts'));
     }
 
-    public function hidePost() //gives admin right to hide a post
+    public function hidePost($id) //gives admin right to hide a post
+    {
+        $post = Post::findOrFail($id);
+        $post->update([
+            'private' => "1"
+        ]);
+
+        return redirect('/index');
+    }
+
+    public function filters($filter) //get id number
+    {
+        $posts = Post::all()->where('category_id', $filter);
+        return view('post.index', compact(var_name: 'posts'));
+    }
+
+    public function search(Request $request)
     {
 
+        request()->validate([
+            'search' => ['required', 'max:10']
+        ]);
+
+        // Get the search value from the request
+        $search = $request->input('search');
+
+        // Search in the title and body columns from the posts table
+        $posts = Post::query()
+            ->where('title', 'LIKE', "%{$search}%")
+            ->orWhere('id', 'LIKE', "%{$search}%")
+            ->get();
+
+        return view('post.index', compact('posts'));
     }
 
 }

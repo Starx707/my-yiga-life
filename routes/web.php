@@ -30,7 +30,17 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/my-posts', 'userPosts')
         ->name('user-posts');
 
-    Route::get('/all-posts', '')
+    Route::get('/all-posts', 'allPosts')
+        ->name('all-posts');
+
+    Route::get('/hide/{id}', 'hidePost')
+        ->name('hide');
+
+    Route::get('/category/{filterId}', 'filters')
+        ->name('category');
+
+    Route::get('/search/', 'search')
+        ->name('search');
 })->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {
