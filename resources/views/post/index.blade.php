@@ -77,10 +77,6 @@
     </div>
 @endif
 
-
-{{--<p> Category: {{$post->category->name}}--//category()->where.... (not needed and with () it's a query)}}
-{{--<a href="{{route('posts.create')}}">Add new page</a>--}}
-{{--need to make directory thingy?--}}
 <div>
     {{--    {{ $posts->links() }}--}}
 </div>

@@ -43,15 +43,22 @@
             <td>
                 <button form="delete-form">Delete</button>
             </td>
-            <td><a href="/hide/{{$post->id}}">Hide</a></td>
+            <td>
+                <button form="hide-form">Hide</button>
+            </td>
             <td><a href="/post/{{$post->id}}/">View</a></td>
         </tr>
-    @endforeach
 
-    <form method="POST" action="/post/{{$post->id}}" class="hidden" id="delete-form">
-        @csrf
-        @method('DELETE')
-    </form>
+        <form method="POST" action="/post/{{$post->id}}" class="hidden" id="delete-form">
+            @csrf
+            @method('DELETE')
+        </form>
+
+        <form action="/hide/{{$post->id}}" method="POST" class="hidden" id="hide-form">
+            @csrf
+        </form>
+
+    @endforeach
 </table>
 </body>
 </html>

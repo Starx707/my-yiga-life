@@ -157,7 +157,7 @@ class PostController extends Controller
             'private' => "1"
         ]);
 
-        return redirect('/index');
+        return redirect('/all-posts');
     }
 
     public function filters($filter) //get id number

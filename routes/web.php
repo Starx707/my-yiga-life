@@ -33,7 +33,7 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/all-posts', 'allPosts')
         ->name('all-posts');
 
-    Route::get('/hide/{id}', 'hidePost')
+    Route::post('/hide/{id}', 'hidePost')
         ->name('hide');
 
     Route::get('/category/{filterId}', 'filters')
